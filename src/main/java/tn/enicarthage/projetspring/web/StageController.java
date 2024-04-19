@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.RestController;
 import tn.enicarthage.projetspring.entities.Stage;
 import tn.enicarthage.projetspring.services.IStageService;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,9 +20,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class StageController {
 	@Autowired
 	private IStageService stageServ ;
-	@GetMapping("/getone/{id}")
-	public ResponseEntity<Stage> afficherStagebyid(@PathVariable Long id ){
-		Stage s= stageServ.afficherStagebyid(id);
+	@GetMapping("/getall")
+	public ResponseEntity<List<Stage>> getStages(){
+		List<Stage> s= stageServ.getall();
 		return ResponseEntity.ok(s);
+	}
+	@GetMapping("/scraping")
+	public ResponseEntity<String> getAllStages(){
+		return ResponseEntity.ok(stageServ.scraperHiinterns());
 	}
 }

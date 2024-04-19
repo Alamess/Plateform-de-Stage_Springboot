@@ -1,7 +1,9 @@
 package tn.enicarthage.projetspring.services;
+import java.util.List;
 
 import tn.enicarthage.projetspring.entities.Stage;
 
 public interface IStageService {
- Stage afficherStagebyid(Long id) ;
+ public List<Stage> getall() ;
+ public String scraperHiinterns();
 }

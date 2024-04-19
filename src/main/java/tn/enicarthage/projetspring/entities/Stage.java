@@ -1,7 +1,4 @@
 package tn.enicarthage.projetspring.entities;
-
-import java.util.Date;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,5 +15,6 @@ public class Stage {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String description;
-	private Date dateDebut;
+	private String titre;
+	private String nom;
 }
