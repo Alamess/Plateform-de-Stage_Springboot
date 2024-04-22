@@ -3,6 +3,8 @@ package tn.enicarthage.projetspring.web;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.enicarthage.projetspring.entities.Stage;
+import tn.enicarthage.projetspring.entities.StageETE;
+import tn.enicarthage.projetspring.entities.StagePFE;
 import tn.enicarthage.projetspring.services.IStageService;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,6 +25,16 @@ public class StageController {
 	@GetMapping("/getall")
 	public ResponseEntity<List<Stage>> getStages(){
 		List<Stage> s= stageServ.getall();
+		return ResponseEntity.ok(s);
+	}
+	@GetMapping("/getallPFE")
+	public ResponseEntity<List<StagePFE>> getStagesPFE(){
+		List<StagePFE> s= stageServ.getallPFE();
+		return ResponseEntity.ok(s);
+	}
+	@GetMapping("/getallETE")
+	public ResponseEntity<List<StageETE>> getStagesETE(){
+		List<StageETE> s= stageServ.getallETE();
 		return ResponseEntity.ok(s);
 	}
 	@GetMapping("/scraping")

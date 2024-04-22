@@ -11,10 +11,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Stage {
+public abstract class Stage {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String description;
 	private String titre;
 	private String nom;
+	private String duree ;
+	private String img ;
+	private String expiration ;
 }

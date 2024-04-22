@@ -15,12 +15,20 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import tn.enicarthage.projetspring.entities.Stage;
+import tn.enicarthage.projetspring.entities.StageETE;
+import tn.enicarthage.projetspring.entities.StagePFE;
+import tn.enicarthage.projetspring.repositories.StageETERepository;
+import tn.enicarthage.projetspring.repositories.StagePFERepository;
 import tn.enicarthage.projetspring.repositories.StageRepository;
 @Service
-@CrossOrigin(origins = "http://localhost:58809/home") 
+@CrossOrigin(origins = "http://localhost:4200/home") 
 public class StageServiceImp implements IStageService {
 	@Autowired
 	private StageRepository stagerepo ;
+	@Autowired
+	private StagePFERepository PFErepo ;
+	@Autowired
+	private StageETERepository ETErepo ;
 	public List<Stage> getall() {
             return stagerepo.findAll();
 	}
@@ -35,23 +43,48 @@ public class StageServiceImp implements IStageService {
             String currentUrl = String.format(urlPattern, pageNumber);
             try {
                 Document doc = Jsoup.connect(currentUrl).get();
-                Elements stageCards = doc.select("div.flex.flex-col.gap-2");
+                Elements stageCards = doc.select("section.relative.overflow-clip");
 
                 for (Element stageCard : stageCards) {
-                    String stageTitle = stageCard.select("a.mr-11.line-clamp-2.text-base.font-bold.text-gray-800").text().trim();
-                    String stageSociete = stageCard.select("p.text-xs.text-gray-500").text().trim();
-                    String description = stageCard.select("p.mb-2.text-sm.font-medium.text-gray-700").text().trim();
-                    Stage stage = new Stage();
-                    stage.setTitre(stageTitle);
-                    stage.setNom(stageSociete);
-                    stage.setDescription(description);
-                    if(description!=""|stageTitle!=""|stageSociete!="") {
+                    Element stageTitleElement = stageCard.select("p.text-xs.text-gray-500").first();
+                    String stageTitle =stageCard.select("a.mr-11.line-clamp-2.text-base.font-bold.text-gray-800").text().trim();
+                    String stageSociete = stageCard.select("button > div.flex.items-start > div > div > h2 > p").text().trim();
+                    String description = stageCard.select(" p.mb-2.text-sm.font-medium.text-gray-700").text().trim();
+                    String img = stageCard.select("img").attr("src").trim();
+                    String expiration =(stageTitleElement!=null)? stageTitleElement.text().trim() : "";
+                    String duree = stageCard.select("div.bg-purple-100.text-purple-800").text().trim();
+                    if((description!=""|stageTitle!=""|stageSociete!="")&duree.contains("6")) {
+                    	StagePFE stage = new StagePFE();
+                        stage.setTitre(stageTitle);
+                        stage.setNom(stageSociete);
+                        stage.setDescription(description);
+                        stage.setDuree(duree);
+                        stage.setImg(img);
+                        stage.setExpiration(expiration);
+                    	allStageData.add(stage); 
                     	Optional<Stage> existant = stagerepo.findByDescriptionAndTitreAndNom(description, stageTitle, stageSociete);
                     	if (!existant.isPresent()) {
                     	  stagerepo.save(stage);
+                    	  
+                    	}
+                    
+                    }
+                    else if((description!=""|stageTitle!=""|stageSociete!="")&!duree.contains("6")) {
+                    	StageETE stage = new StageETE();
+                        stage.setTitre(stageTitle);
+                        stage.setNom(stageSociete);
+                        stage.setDescription(description);
+                        stage.setDuree(duree);
+                        stage.setImg(img);
+                        stage.setExpiration(expiration);
+                    	allStageData.add(stage); 
+                    	Optional<Stage> existant = stagerepo.findByDescriptionAndTitreAndNom(description, stageTitle, stageSociete);
+                    	if (!existant.isPresent()) {
+                    	  stagerepo.save(stage);
+                    	  
                     	}
                     }
-                    allStageData.add(stage);
+                     
                 }
                 
                 
@@ -66,4 +99,10 @@ public class StageServiceImp implements IStageService {
             return "Erreur lors de la conversion des données en JSON.";
         }
     }
+	public List<StagePFE> getallPFE() {
+        return PFErepo.findAll();
+}
+	public List<StageETE> getallETE() {
+        return ETErepo.findAll();
+}
 }
