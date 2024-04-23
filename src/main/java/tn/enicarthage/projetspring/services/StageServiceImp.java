@@ -107,7 +107,4 @@ public class StageServiceImp implements IStageService {
 	public List<StageETE> getallETE() {
         return ETErepo.findAll();
 }
-	public List<StageETE> getallE() {
-        return ETErepo.findAll();
-}
 }
