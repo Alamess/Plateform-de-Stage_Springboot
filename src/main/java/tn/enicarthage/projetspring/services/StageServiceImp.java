@@ -53,6 +53,7 @@ public class StageServiceImp implements IStageService {
                     String img = stageCard.select("img").attr("src").trim();
                     String expiration =(stageTitleElement!=null)? stageTitleElement.text().trim() : "";
                     String duree = stageCard.select("div.bg-purple-100.text-purple-800").text().trim();
+                    String necessarity =stageCard.select("div.flex.flex-wrap.gap-1 > div.bg-gray-100").text().trim();
                     if((description!=""|stageTitle!=""|stageSociete!="")&duree.contains("6")) {
                     	StagePFE stage = new StagePFE();
                         stage.setTitre(stageTitle);
@@ -60,6 +61,7 @@ public class StageServiceImp implements IStageService {
                         stage.setDescription(description);
                         stage.setDuree(duree);
                         stage.setImg(img);
+                        stage.setNecessarity(necessarity);
                         stage.setExpiration(expiration);
                     	allStageData.add(stage); 
                     	Optional<Stage> existant = stagerepo.findByDescriptionAndTitreAndNom(description, stageTitle, stageSociete);

@@ -20,4 +20,5 @@ public abstract class Stage {
 	private String duree ;
 	private String img ;
 	private String expiration ;
+	private String necessarity;
 }
