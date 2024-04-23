@@ -10,4 +10,5 @@ public interface IStageService {
  public String scraperHiinterns();
  public List<StagePFE> getallPFE();
  public List<StageETE> getallETE();
+ public List<StageETE> getallE() ;
 }
