@@ -6,12 +6,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tn.enicarthage.projetspring.services.IEtudiantService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping("/Etudiant")
 public class EtudiantController {
 	@Autowired
