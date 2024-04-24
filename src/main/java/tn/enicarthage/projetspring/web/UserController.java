@@ -25,7 +25,6 @@ import tn.enicarthage.projetspring.utils.MessageUtils;
 //import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 @RestController
 @RequestMapping("/User")
-@CrossOrigin
 public class UserController  {
 
 	@Autowired
