@@ -18,7 +18,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import tn.enicarthage.projetspring.config.JwtProvider;
+import tn.enicarthage.projetspring.entities.Etudiant;
 import tn.enicarthage.projetspring.entities.User;
+import tn.enicarthage.projetspring.repositories.EtudiantRepository;
 import tn.enicarthage.projetspring.repositories.UserRepository;
 import tn.enicarthage.projetspring.request.LoginRequest;
 import tn.enicarthage.projetspring.response.AuthResponse;
@@ -32,6 +34,9 @@ public class AuthController {
 	
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private EtudiantRepository EtdRepo;
+
 	@Autowired
 	private CustomUserDetailService customUserDetails;
 	@Autowired
@@ -54,6 +59,18 @@ public class AuthController {
 		AuthResponse res =new AuthResponse();
 		res.setJwt(token);
 		res.setMessage("Login Success");
+		User user =userRepository.findByEmail(email);
+		if (user.getRole().equals("ETD")) {
+			Etudiant etd=EtdRepo.getById(user.getId());
+			res.setId(user.getId());
+			res.setFiliere(etd.getFiliere());
+			res.setFavoris(etd.getFavoris());
+			res.setNom(etd.getNom());
+			res.setPrenom(etd.getPrenom());
+			
+		}
+
+
 		
 		
 		

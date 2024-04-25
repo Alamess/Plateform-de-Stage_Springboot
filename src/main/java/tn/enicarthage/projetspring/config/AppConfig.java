@@ -16,9 +16,11 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
-
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import jakarta.servlet.http.HttpServletRequest;
-
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+@EnableWebSecurity
+@EnableMethodSecurity
 @Configuration
 public class AppConfig {
 	
