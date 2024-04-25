@@ -69,6 +69,14 @@ public class AuthController {
 			res.setPrenom(etd.getPrenom());
 			
 		}
+		
+		if (user.getRole().equals("AD")) {
+			res.setNom(user.getNom());
+			res.setPrenom(user.getPrenom());
+			res.setRole(user.getRole());
+			
+		}
+		
 
 
 		

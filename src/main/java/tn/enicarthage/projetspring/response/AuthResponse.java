@@ -21,5 +21,6 @@ public class AuthResponse {
 	private Long Id;
 	private String Filiere;
 	private ArrayList<Long> Favoris=new ArrayList<>();
+	private String Role;
 
 }
