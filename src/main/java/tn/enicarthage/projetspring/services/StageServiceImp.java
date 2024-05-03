@@ -1,4 +1,5 @@
 package tn.enicarthage.projetspring.services;
+import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import tn.enicarthage.projetspring.aspect.LogTimeAspect;
 import tn.enicarthage.projetspring.entities.Stage;
 import tn.enicarthage.projetspring.entities.StageETE;
 import tn.enicarthage.projetspring.entities.StagePFE;
@@ -45,7 +47,7 @@ public class StageServiceImp implements IStageService {
                 Document doc = Jsoup.connect(currentUrl).get();
                 Elements stageCards = doc.select("section.relative.overflow-clip");
 
-                for (Element stageCard : stageCards) {
+                for (Element stageCard : stageCards) {  
                     Element stageTitleElement = stageCard.select("p.text-xs.text-gray-500").first();
                     String stageTitle =stageCard.select("a.mr-11.line-clamp-2.text-base.font-bold.text-gray-800").text().trim();
                     String stageSociete = stageCard.select("button > div.flex.items-start > div > div > h2 > p").text().trim();
